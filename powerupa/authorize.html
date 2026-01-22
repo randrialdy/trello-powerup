@@ -1,14 +1,34 @@
-<script src="https://p.trellocdn.com/power-up.min.js"></script>
-<script>
-  alert('authorize iframe loaded');
-  const t = TrelloPowerUp.iframe();
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Authorize Power-Up A</title>
+</head>
+<body>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    const t = TrelloPowerUp.iframe();
 
-  t.authorize({
-    type: 'popup',
-    name: 'Power-Up A',
-    scope: { read: true, write: true },
-    expiration: 'never'
-  })
-  .then(() => t.closePopup())
-  .catch(err => console.error(err));
-</script>
+    const authorizeUrl =
+      'https://trello.com/1/authorize' +
+      '?expiration=never' +
+      '&name=Power-Up%20A' +
+      '&scope=read,write' +
+      '&response_type=token' +
+      '&key=2724c7e7d9e21b4245805125ff7f7c1a' +
+      '&return_url=' + encodeURIComponent('https://rayandrialdy.github.io/powerupa/authorie-success.html');
+
+    t.authorize({
+      type: 'popup',
+      name: 'Power-Up A',
+      authorizeUrl: authorizeUrl
+    })
+    .then(function () {
+      return t.closePopup();
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+  </script>
+</body>
+</html>
