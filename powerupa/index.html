@@ -12,11 +12,10 @@
         return [{
           text: 'Authorize A',
           callback: function () {
-            return t.authorize({
-              type: 'popup',
-              name: 'Power-Up A',
-              scope: { read: true, write: true },
-              expiration: 'never'
+            return t.popup({
+              title: 'Authorize Power-Up A',
+              url: './authorize.html',
+              height: 200
             });
           }
         }];
