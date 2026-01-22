@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Power-Up A</title>
+</head>
+<body>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    TrelloPowerUp.initialize({
+      'board-buttons': function (t) {
+        return [{
+          text: 'Authorize A',
+          callback: function () {
+            return t.authorize({
+              type: 'popup',
+              name: 'Power-Up A',
+              scope: { read: true, write: true },
+              expiration: 'never'
+            });
+          }
+        }];
+      }
+    });
+  </script>
+</body>
+</html>
