@@ -13,19 +13,28 @@
     var t = TrelloPowerUp.iframe();
 
     document.getElementById('auth').onclick = function () {
+
       var authUrl =
         "https://trello.com/1/authorize" +
         "?expiration=never" +
         "&name=Randrialdy PowerUp" +
         "&scope=read,write" +
         "&response_type=token" +
-        "&key=2724c7e7d9e21b4245805125ff7f7c1a" +
-        "&return_url=" +
-        encodeURIComponent(
-          "https://randrialdy.github.io/trello-powerup/powerupa/authorize-success.html"
-        );
+        "&key=2724c7e7d9e21b4245805125ff7f7c1a";
 
-      t.authorize(authUrl, { height: 680 });
+      t.authorize(authUrl, { height: 680 })
+        .then(function (token) {
+          // 🔥 TOKEN DATANG KE SINI
+          return t.set('member', 'private', 'token', token);
+        })
+        .then(function () {
+          return t.closePopup();
+        })
+        .catch(function (err) {
+          console.error(err);
+          alert('Authorize gagal');
+        });
+
     };
   </script>
 </body>
