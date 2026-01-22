@@ -2,17 +2,21 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorization Success</title>
+  <title>Authorized</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
 <body>
-  <h3>Authorization successful</h3>
-  <p>You can close this window.</p>
+  <h3>Authorization Success ✅</h3>
 
   <script>
-    // Optional: auto close if opened in popup
-    if (window.opener) {
-      window.close();
-    }
+    var t = TrelloPowerUp.iframe();
+
+    var token = window.location.hash.replace('#token=', '');
+
+    t.set('member', 'private', 'token', token)
+      .then(function () {
+        t.closePopup();
+      });
   </script>
 </body>
 </html>
