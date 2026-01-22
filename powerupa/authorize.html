@@ -2,44 +2,31 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorize A</title>
+  <title>Authorize</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
 <body>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <h3>Authorize Power-Up</h3>
+  <button id="auth">Authorize with Trello</button>
 
   <script>
-    console.log('authorize.html LOADED vFINAL');
+    var t = TrelloPowerUp.iframe();
 
-    const t = TrelloPowerUp.iframe();
-
-    t.authorize({
-      type: 'popup',
-      name: 'Power-Up A',
-
-      authorizeUrl: function (secret) {
-        console.log('authorizeUrl called, secret=', secret);
-
-        return (
-          'https://trello.com/1/authorize' +
-          '?expiration=never' +
-          '&name=Power-Up%20A' +
-          '&scope=read,write' +
-          '&response_type=token' +
-          '&key=2724c7e7d9e21b4245805125ff7f7c1a' +
-          '&state=' + secret +
-          '&return_url=' + encodeURIComponent(
-            'https://rayandrialdy.github.io/powerupa/authorize-success.html'
-          )
+    document.getElementById('auth').onclick = function () {
+      var authUrl =
+        "https://trello.com/1/authorize" +
+        "?expiration=never" +
+        "&name=Randrialdy PowerUp" +
+        "&scope=read,write" +
+        "&response_type=token" +
+        "&key=2724c7e7d9e21b4245805125ff7f7c1a" +
+        "&return_url=" +
+        encodeURIComponent(
+          "https://randrialdy.github.io/trello-powerup/powerupa/authorize-success.html"
         );
-      }
-    })
-    .then(function () {
-      console.log('authorize SUCCESS');
-      return t.closePopup();
-    })
-    .catch(function (err) {
-      console.error('authorize FAILED', err);
-    });
+
+      t.authorize(authUrl, { height: 680 });
+    };
   </script>
 </body>
 </html>
