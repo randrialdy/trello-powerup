@@ -1,18 +1,10 @@
-<script src="https://p.trellocdn.com/power-up.min.js"></script>
-<script>
-TrelloPowerUp.initialize({
-  'board-buttons': function (t) {
-    return [{
-      text: 'Authorize A',
-      callback: function (t, options) {
-        return t.popup({
-          title: 'Authorize Power-Up A',
-          url: './authorize.html',
-          height: 200,
-          mouseEvent: options.mouseEvent   // ⭐ INI KUNCI
-        });
-      }
-    }];
-  }
-});
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Trello Power-Up</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script src="./js/powerup.js"></script>
+</head>
+<body></body>
+</html>
