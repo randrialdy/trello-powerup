@@ -1,50 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Authorize</title>
-</head>
 <body>
-
-<button id="auth">Authorize with Trello</button>
+<button id="auth">Authorize</button>
 
 <script src="https://p.trellocdn.com/power-up.min.js"></script>
 <script>
-  const t = TrelloPowerUp.iframe();
-  const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
+const t = TrelloPowerUp.iframe();
+const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
 
-  document.getElementById('auth').onclick = function () {
-    t.authorize({
-      type: 'popup',
-      name: 'My Power-Up',
-      scope: {
-        read: true,
-        write: true
-      },
-      expiration: 'never',
+window.addEventListener('message', function(e){
+  if (e.data?.token) {
+    t.set('member','private','token', e.data.token)
+      .then(() => t.closePopup());
+  }
+});
 
-      url: function () {
-        return (
-          'https://trello.com/1/authorize' +
-          '?expiration=never' +
-          '&name=My%20Power-Up' +
-          '&scope=read,write' +
-          '&response_type=token' +
-          '&key=' + API_KEY
-        );
-      }
-    })
-    .then(function (token) {
-      console.log('TOKEN OK:', token);
-      return t
-        .set('member', 'private', 'token', token)
-        .then(() => t.closePopup());
-    })
-    .catch(function (err) {
-      console.error('AUTHORIZE ERROR', err);
-    });
-  };
+document.getElementById('auth').onclick = function(){
+  const url =
+    'https://trello.com/1/authorize' +
+    '?expiration=never' +
+    '&name=My%20Power-Up' +
+    '&scope=read,write' +
+    '&response_type=token' +
+    '&key=' + API_KEY +
+    '&return_url=' + encodeURIComponent(
+      location.origin + '/authorize-success.html'
+    );
+
+  window.open(url, '_blank', 'width=720,height=600');
+};
 </script>
-
 </body>
 </html>
