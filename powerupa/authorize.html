@@ -20,7 +20,7 @@
       '&response_type=token' +
       '&key=' + API_KEY +
       '&return_url=' + encodeURIComponent(
-        'https://randrialdy.github.io/trello-powerup/powerupa/authorize-success.html'
+        window.location.href
       );
 
        document.getElementById('auth').onclick = function () {
