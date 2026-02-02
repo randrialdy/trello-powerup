@@ -10,7 +10,12 @@
   const t = TrelloPowerUp.iframe();
 
   t.authorize({
-    scope: { read: true, write: true },
+    type: 'popup',
+    name: 'Power-Up A Authorization',
+    scope: {
+      read: true,
+      write: true
+    },
     expiration: 'never',
     success: function () {
       window.location.href = 'auth-success.html';
