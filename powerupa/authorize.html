@@ -9,6 +9,8 @@
 <script>
   const t = TrelloPowerUp.iframe();
 
+  const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
+
   t.authorize({
     type: 'popup',
     name: 'My Power-Up',
@@ -17,13 +19,31 @@
       write: true
     },
     expiration: 'never',
-    success: function(token) {
-      // ✅ INI TOKEN VALID
-      return t.set('member', 'private', 'token', token)
+
+    // 🔑 INI YANG TADI HILANG
+    url: function (secret) {
+      return (
+        'https://trello.com/1/authorize' +
+        '?expiration=never' +
+        '&name=My%20Power-Up' +
+        '&scope=read,write' +
+        '&response_type=token' +
+        '&key=' + API_KEY +
+        '&return_url=' + encodeURIComponent(
+          window.location.origin + '/powerupa/authorize-success.html'
+        )
+      );
+    },
+
+    success: function (token) {
+      // ✅ TOKEN VALID
+      return t
+        .set('member', 'private', 'token', token)
         .then(() => t.closePopup());
     },
-    error: function(err) {
-      console.error(err);
+
+    error: function (err) {
+      console.error('AUTH ERROR', err);
     }
   });
 </script>
