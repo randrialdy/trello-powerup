@@ -2,27 +2,35 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>PowerUp A - Index</title>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <title>Power-Up Home</title>
 </head>
 <body>
-<script>
-  TrelloPowerUp.initialize({
-    'board-buttons': function (t) {
-      return [{
-        text: 'Power-Up A',
-        callback: async function (t) {
-          const token = await t.get('member', 'private', 'token');
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    TrelloPowerUp.initialize({
+      'board-buttons': function (t) {
+        return [{
+          text: 'My Power-Up',
+          callback: function (t, options) {
+            return t.get('member', 'private', 'token')
+              .then(function (token) {
+                if (token) {
+                  return t.alert({
+                    message: 'Already authorized ✅'
+                  });
+                }
 
-          return t.popup({
-            title: token ? 'Power-Up A' : 'Authorize Power-Up A',
-            url: token ? 'home.html' : 'auth.html',
-            height: 200
-          });
-        }
-      }];
-    }
-  });
-</script>
+                return t.popup({
+                  title: 'Authorize',
+                  url: './authorize.html?v=1',
+                  height: 200,
+                  mouseEvent: options.mouseEvent
+                });
+              });
+          }
+        }];
+      }
+    });
+  </script>
 </body>
 </html>
