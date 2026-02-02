@@ -5,11 +5,11 @@
   <title>Authorize</title>
 </head>
 <body>
-  <p>Authorizing…</p>
+   <button id="auth">Authorize with Trello</button>
 
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
-    const t = TrelloPowerUp.iframe();
+    //const t = TrelloPowerUp.iframe();
 
     // ganti API key sorangan
     const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
@@ -25,7 +25,9 @@
         'https://randrialdy.github.io/trello-powerup/powerupa/authorize-success.html'
       );
 
-     window.location.href = authUrl;
+       document.getElementById('auth').onclick = function () {
+      // ⭐ ini TOP-LEVEL popup, bukan iframe
+      window.open(authUrl, '_blank', 'width=720,height=600');
   </script>
 </body>
 </html>
