@@ -5,26 +5,8 @@
   <title>Auth Success</title>
 </head>
 <body>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
-    const t = TrelloPowerUp.iframe();
-
-    // Ambil token dari URL fragment
-    const params = new URLSearchParams(window.location.hash.substring(1));
-    const token = params.get('token');
-
-    if (token) {
-      // Simpan ke member/private pluginData
-      t.set('member', 'private', 'token', token)
-        .then(function () {
-          // ✅ AUTO-CLOSE setelah sukses
-          if (window.opener) window.close();
-        })
-        .catch(console.error);
-    } else {
-      console.error('Token not found');
-      if (window.opener) window.close();
-    }
+   window.close()
   </script>
 </body>
 </html>
