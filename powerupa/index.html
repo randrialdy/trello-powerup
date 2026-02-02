@@ -11,10 +11,13 @@
     'board-buttons': function (t) {
       return [{
         text: 'Power-Up A',
-        callback: function (t) {
+        callback: async function (t) {
+          const token = await t.get('member', 'private', 'token');
+
           return t.popup({
-            title: 'Power-Up A',
-            url: 'home.html'
+            title: token ? 'Power-Up A' : 'Authorize Power-Up A',
+            url: token ? 'home.html' : 'auth.html',
+            height: 200
           });
         }
       }];
