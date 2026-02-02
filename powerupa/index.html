@@ -2,40 +2,36 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Power-Up Home</title>
+  <title>Power-Up Entry</title>
 </head>
 <body>
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script>
-    TrelloPowerUp.initialize({
-      'board-buttons': function (t) {
-        return [{
-          text: 'My Power-Up',
-          callback: function (t, options) {
 
-            // Cek token di member/private pluginData
-            return t.get('member', 'private', 'token')
-              .then(function (token) {
-                if (token) {
-                  // ✅ SUDAH AUTH → JANGAN TAMPILKAN AUTHORIZE
-                  return t.alert({
-                    message: 'Authorized ✅',
-                    duration: 3
-                  });
-                }
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script>
+TrelloPowerUp.initialize({
+  'board-buttons': function (t) {
+    return [{
+      text: 'My Power-Up',
+      callback: async function (t, opts) {
+        // cek token di member/private
+        const token = await t.get('member', 'private', 'token');
 
-                // ❌ BELUM AUTH → MUNCUL AUTHORIZE
-                return t.popup({
-                  title: 'Authorize Power-Up',
-                  url: './authorize.html?v=10',
-                  height: 200,
-                  mouseEvent: options.mouseEvent
-                });
-              });
-          }
-        }];
+        // tentukan halaman tujuan
+        const target = token
+          ? './home.html'
+          : './authorize.html';
+
+        return t.popup({
+          title: token ? 'My Power-Up' : 'Authorize',
+          url: target,
+          height: 300,
+          mouseEvent: opts.mouseEvent
+        });
       }
-    });
-  </script>
+    }];
+  }
+});
+</script>
+
 </body>
 </html>
