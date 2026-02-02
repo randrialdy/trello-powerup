@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Authorize</title>
+</head>
+<body>
+  <p>Authorizing…</p>
+
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    const t = TrelloPowerUp.iframe();
+
+    // ganti API key sorangan
+    const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
+
+    const authUrl =
+      'https://trello.com/1/authorize' +
+      '?expiration=never' +
+      '&name=My%20Power-Up' +
+      '&scope=read,write' +
+      '&response_type=token' +
+      '&key=' + API_KEY +
+      '&return_url=' + encodeURIComponent(
+        'https://randrialdy.github.io/trello-powerup/powerupa/authorize-success.html'
+      );
+
+    window.open(authUrl);
+  </script>
+</body>
+</html>
