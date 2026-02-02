@@ -2,44 +2,30 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorize Power-Up</title>
+  <title>Authorize</title>
 </head>
 <body>
-  <button id="auth">Authorize with Trello</button>
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script>
+  const t = TrelloPowerUp.iframe();
 
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
-  <script>
-    // Konteks iframe Trello (WAJIB)
-    const t = TrelloPowerUp.iframe();
-
-    // API key (public)
-    const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
-
-    // 1) Lamun balik ti OAuth, token aya di URL hash
-    const params = new URLSearchParams(location.hash.substring(1));
-    const token = params.get('token');
-
-    if (token) {
-      // 2) Simpen token ka member/private pluginData
-      t.set('member', 'private', 'token', token)
-        .then(() => t.closePopup()) // 3) AUTO-CLOSE
-        .catch(console.error);
+  t.authorize({
+    type: 'popup',
+    name: 'My Power-Up',
+    scope: {
+      read: true,
+      write: true
+    },
+    expiration: 'never',
+    success: function(token) {
+      // ✅ INI TOKEN VALID
+      return t.set('member', 'private', 'token', token)
+        .then(() => t.closePopup());
+    },
+    error: function(err) {
+      console.error(err);
     }
-
-    // 4) Trigger OAuth (TOP-LEVEL WINDOW, kudu user click)
-    document.getElementById('auth').onclick = function () {
-      const authUrl =
-        'https://trello.com/1/authorize' +
-        '?expiration=never' +
-        '&name=My%20Power-Up' +
-        '&scope=read,write' +
-        '&response_type=token' +
-        '&key=' + API_KEY +
-        // Balik deui ka file ieu (iframe)
-        '&return_url=' + encodeURIComponent(window.location.href);
-
-      window.open(authUrl, '_blank', 'width=720,height=600');
-    };
-  </script>
+  });
+</script>
 </body>
 </html>
