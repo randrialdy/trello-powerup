@@ -7,7 +7,7 @@
 </head>
 <body>
 <script>
-  const t = TrelloPowerUp.initialize();
+  const t = TrelloPowerUp.iframe();
 
   t.authorize({
     scope: { read: true, write: true },
@@ -16,7 +16,7 @@
       window.location.href = 'auth-success.html';
     },
     error: function () {
-      alert('Auth failed');
+      alert('Authorization failed');
     }
   });
 </script>
