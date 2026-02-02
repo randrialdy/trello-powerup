@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Auth Success</title>
-</head>
 <body>
-  <script>
-   window.close()
-  </script>
+<script>
+const token = new URLSearchParams(location.hash.slice(1)).get('token');
+
+if (token && window.opener) {
+  window.opener.postMessage({ token }, '*');
+  window.close();
+}
+</script>
 </body>
 </html>
