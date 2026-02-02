@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+</head>
+<body>
+
+<h3>My Power-Up Home</h3>
+<button id="check">Cek Auth</button>
+<button id="logout">Logout</button>
+
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script>
+const t = TrelloPowerUp.iframe();
+
+// tombol cek token
+document.getElementById('check').onclick = async () => {
+  const token = await t.get('member', 'private', 'token');
+
+  if (token) {
+    t.alert({
+      message: 'Sudah authorize ✅',
+      duration: 3
+    });
+  } else {
+    t.alert({
+      message: 'Belum authorize ❌',
+      duration: 3
+    });
+  }
+};
+
+// tombol logout (hapus token)
+document.getElementById('logout').onclick = async () => {
+  await t.remove('member', 'private', 'token');
+  t.alert({
+    message: 'Token dihapus',
+    duration: 3
+  });
+};
+</script>
+
+</body>
+</html>
