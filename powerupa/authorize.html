@@ -6,8 +6,6 @@
 </head>
 <body>
    <button id="auth">Authorize with Trello</button>
-
-  <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
     //const t = TrelloPowerUp.iframe();
 
@@ -28,6 +26,7 @@
        document.getElementById('auth').onclick = function () {
       // ⭐ ini TOP-LEVEL popup, bukan iframe
       window.open(authUrl, '_blank', 'width=720,height=600');
+       };   
   </script>
 </body>
 </html>
