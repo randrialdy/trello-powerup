@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PowerUp A - Home</title>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+<h3>Power-Up A</h3>
+
+<button id="check">Check Token</button>
+<pre id="out"></pre>
+
+<script>
+  const t = TrelloPowerUp.initialize();
+
+  document.getElementById('check').onclick = async () => {
+    const token = await t.get('member', 'private', 'token');
+    document.getElementById('out').textContent =
+      token ? 'TOKEN EXISTS:\n' + token : 'NO TOKEN';
+  };
+</script>
+</body>
+</html>
