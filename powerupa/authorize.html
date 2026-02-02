@@ -24,7 +24,7 @@ document.getElementById('auth').onclick = function(){
     '&response_type=token' +
     '&key=' + API_KEY +
     '&return_url=' + encodeURIComponent(
-      location.origin + '/authorize-success.html'
+      location.origin + '/powerupa/authorize-success.html'
     );
 
   window.open(url, '_blank', 'width=720,height=600');
