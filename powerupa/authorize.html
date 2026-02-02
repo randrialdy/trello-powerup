@@ -5,41 +5,46 @@
   <title>Authorize</title>
 </head>
 <body>
+
+<button id="auth">Authorize with Trello</button>
+
 <script src="https://p.trellocdn.com/power-up.min.js"></script>
 <script>
   const t = TrelloPowerUp.iframe();
   const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
 
-  t.authorize({
-    type: 'popup',
-    name: 'My Power-Up',
-    scope: {
-      read: true,
-      write: true
-    },
-    expiration: 'never',
+  document.getElementById('auth').onclick = function () {
+    t.authorize({
+      type: 'popup',
+      name: 'My Power-Up',
+      scope: {
+        read: true,
+        write: true
+      },
+      expiration: 'never',
 
-    // ⚠️ WAJIB AYA
-    url: function(secret) {
-      return (
-        'https://trello.com/1/authorize' +
-        '?expiration=never' +
-        '&name=My%20Power-Up' +
-        '&scope=read,write' +
-        '&response_type=token' +
-        '&key=' + API_KEY
-      );
-    }
-  })
-  .then(function(token) {
-    // ✅ TOKEN DI SINI
-    return t
-      .set('member', 'private', 'token', token)
-      .then(() => t.closePopup());
-  })
-  .catch(function(err) {
-    console.error('AUTHORIZE FAILED', err);
-  });
+      url: function () {
+        return (
+          'https://trello.com/1/authorize' +
+          '?expiration=never' +
+          '&name=My%20Power-Up' +
+          '&scope=read,write' +
+          '&response_type=token' +
+          '&key=' + API_KEY
+        );
+      }
+    })
+    .then(function (token) {
+      console.log('TOKEN OK:', token);
+      return t
+        .set('member', 'private', 'token', token)
+        .then(() => t.closePopup());
+    })
+    .catch(function (err) {
+      console.error('AUTHORIZE ERROR', err);
+    });
+  };
 </script>
+
 </body>
 </html>
