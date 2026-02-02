@@ -12,17 +12,22 @@
         return [{
           text: 'My Power-Up',
           callback: function (t, options) {
+
+            // Cek token di member/private pluginData
             return t.get('member', 'private', 'token')
               .then(function (token) {
                 if (token) {
+                  // ✅ SUDAH AUTH → JANGAN TAMPILKAN AUTHORIZE
                   return t.alert({
-                    message: 'Already authorized ✅'
+                    message: 'Authorized ✅',
+                    duration: 3
                   });
                 }
 
+                // ❌ BELUM AUTH → MUNCUL AUTHORIZE
                 return t.popup({
-                  title: 'Authorize',
-                  url: './authorize.html?v=1',
+                  title: 'Authorize Power-Up',
+                  url: './authorize.html?v=10',
                   height: 200,
                   mouseEvent: options.mouseEvent
                 });
