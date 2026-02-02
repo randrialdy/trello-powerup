@@ -2,39 +2,44 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authorize</title>
+  <title>Authorize Power-Up</title>
 </head>
 <body>
-   <button id="auth">Authorize with Trello</button>
-  <script>
-    //const t = TrelloPowerUp.iframe();
+  <button id="auth">Authorize with Trello</button>
 
-    // ganti API key sorangan
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    // Konteks iframe Trello (WAJIB)
+    const t = TrelloPowerUp.iframe();
+
+    // API key (public)
     const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
 
-    const authUrl =
-      'https://trello.com/1/authorize' +
-      '?expiration=never' +
-      '&name=My%20Power-Up' +
-      '&scope=read,write' +
-      '&response_type=token' +
-      '&key=' + API_KEY +
-      '&return_url=' + encodeURIComponent(
-        window.location.href
-      );
-
-       document.getElementById('auth').onclick = function () {
-      // ⭐ ini TOP-LEVEL popup, bukan iframe
-      window.open(authUrl, '_blank', 'width=720,height=600');
-       };
-     // ⬇️ KETIKA REDIRECT BALIK
+    // 1) Lamun balik ti OAuth, token aya di URL hash
     const params = new URLSearchParams(location.hash.substring(1));
     const token = params.get('token');
 
     if (token) {
+      // 2) Simpen token ka member/private pluginData
       t.set('member', 'private', 'token', token)
-        .then(() => t.closePopup());
+        .then(() => t.closePopup()) // 3) AUTO-CLOSE
+        .catch(console.error);
     }
+
+    // 4) Trigger OAuth (TOP-LEVEL WINDOW, kudu user click)
+    document.getElementById('auth').onclick = function () {
+      const authUrl =
+        'https://trello.com/1/authorize' +
+        '?expiration=never' +
+        '&name=My%20Power-Up' +
+        '&scope=read,write' +
+        '&response_type=token' +
+        '&key=' + API_KEY +
+        // Balik deui ka file ieu (iframe)
+        '&return_url=' + encodeURIComponent(window.location.href);
+
+      window.open(authUrl, '_blank', 'width=720,height=600');
+    };
   </script>
 </body>
 </html>
