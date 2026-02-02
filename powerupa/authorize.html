@@ -26,7 +26,15 @@
        document.getElementById('auth').onclick = function () {
       // ⭐ ini TOP-LEVEL popup, bukan iframe
       window.open(authUrl, '_blank', 'width=720,height=600');
-       };   
+       };
+     // ⬇️ KETIKA REDIRECT BALIK
+    const params = new URLSearchParams(location.hash.substring(1));
+    const token = params.get('token');
+
+    if (token) {
+      t.set('member', 'private', 'token', token)
+        .then(() => t.closePopup());
+    }
   </script>
 </body>
 </html>
