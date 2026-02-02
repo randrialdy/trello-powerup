@@ -8,7 +8,6 @@
 <script src="https://p.trellocdn.com/power-up.min.js"></script>
 <script>
   const t = TrelloPowerUp.iframe();
-
   const API_KEY = '2724c7e7d9e21b4245805125ff7f7c1a';
 
   t.authorize({
@@ -20,31 +19,26 @@
     },
     expiration: 'never',
 
-    // 🔑 INI YANG TADI HILANG
-    url: function (secret) {
+    // ⚠️ WAJIB AYA
+    url: function(secret) {
       return (
         'https://trello.com/1/authorize' +
         '?expiration=never' +
         '&name=My%20Power-Up' +
         '&scope=read,write' +
         '&response_type=token' +
-        '&key=' + API_KEY +
-        '&return_url=' + encodeURIComponent(
-          window.location.origin + '/powerupa/authorize-success.html'
-        )
+        '&key=' + API_KEY
       );
-    },
-
-    success: function (token) {
-      // ✅ TOKEN VALID
-      return t
-        .set('member', 'private', 'token', token)
-        .then(() => t.closePopup());
-    },
-
-    error: function (err) {
-      console.error('AUTH ERROR', err);
     }
+  })
+  .then(function(token) {
+    // ✅ TOKEN DI SINI
+    return t
+      .set('member', 'private', 'token', token)
+      .then(() => t.closePopup());
+  })
+  .catch(function(err) {
+    console.error('AUTHORIZE FAILED', err);
   });
 </script>
 </body>
