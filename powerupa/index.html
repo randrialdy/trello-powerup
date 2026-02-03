@@ -11,7 +11,7 @@
 TrelloPowerUp.initialize({
   'board-buttons': function (t) {
     return [{
-      text: 'My Power-Up',
+      text: 'PowerUp A',
       callback: async function (t, opts) {
         // cek token di member/private
         const token = await t.get('member', 'private', 'token');
