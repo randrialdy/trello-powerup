@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Input ka JS</title>
+  <meta charset="utf-8">
 </head>
 <body>
 
-  <input type="text" id="myInput" placeholder="XSS Payload Here">
-  <button onclick="show()">Klik</button>
-
-  <p id="hasil"></p>
-
-  <script>
-    function show() {
-      const nilai = document.getElementById("myInput").value;
-      document.getElementById("hasil").innerHTML = nilai;
+<script src="https://p.trellocdn.com/power-up.min.js"></script>
+<script>
+  const t = TrelloPowerUp.initialize({
+    'board-buttons': function (t, opts) {
+      return [{
+        icon: {
+          dark: 'https://cdn-icons-png.flaticon.com/512/1828/1828817.png',
+          light: 'https://cdn-icons-png.flaticon.com/512/1828/1828817.png'
+        },
+        text: 'Input Test',
+        callback: function (t) {
+          return t.popup({
+            title: 'Input ka JS',
+            url: 'popup.html',
+            height: 200
+          });
+        }
+      }];
     }
-  </script>
+  });
+</script>
 
 </body>
 </html>
