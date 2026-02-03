@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Input ka JS</title>
+</head>
+<body>
+
+  <input type="text" id="myInput" placeholder="XSS Payload Here">
+  <button onclick="show()">Klik</button>
+
+  <p id="hasil"></p>
+
+  <script>
+    function show() {
+      const nilai = document.getElementById("myInput").value;
+      document.getElementById("hasil").innerHTML = nilai;
+    }
+  </script>
+
+</body>
+</html>
