@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Data URL</title>
+</head>
+<body>
+
+  <h2>Data tina URL:</h2>
+  <p id="result">waiting...</p>
+
+  <script>
+    // Ambil query string
+    const params = new URLSearchParams(window.location.search);
+
+    // Ambil parameter "data"
+    const data = params.get("data");
+
+    // Tampilkan ka halaman
+    if (data) {
+      alert(data);
+      document.getElementById("result").textContent = data;
+    } else {
+      document.getElementById("result").textContent = "null";
+    }
+  </script>
+
+</body>
+</html>
