@@ -23,6 +23,12 @@
     } else {
       document.getElementById("result").textContent = "null";
     }
+
+    window.addEventListener("message", e => {
+      console.log("ORIGIN:", e.origin);
+      console.log("SOURCE:", e.source);
+      console.log("DATA:", e.data);
+  });
   </script>
 
 </body>
