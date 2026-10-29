@@ -27,9 +27,9 @@
    window.addEventListener("message", (event) => {
   console.log("origin:", event.origin);
   console.log("source:", event.source);
-  console.log("data:", event.data);
-  console.log("type:", typeof event.data);
-  console.log("keys:", Object.keys(event.data ?? {}));
+ console.log("data:", JSON.stringify(event.data));
+  console.log("length:", event.data.length);
+  console.log("is render:", event.data === "render");
 });
   </script>
 
