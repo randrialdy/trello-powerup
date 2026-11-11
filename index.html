@@ -16,12 +16,25 @@
     const data = params.get("data");
     const html = params.get("html");
 
+    const result = document.getElementById("result");
+
     if (data !== null) {
-      document.getElementById("result").textContent = data;
+      result.textContent = data;
     }
 
     if (html !== null) {
-      document.getElementById("result").innerHTML = html;
+      result.innerHTML = html;
+
+      result.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+
+        Array.from(oldScript.attributes).forEach(attr => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
     }
 
     window.addEventListener("message", (event) => {
