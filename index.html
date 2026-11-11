@@ -8,39 +8,32 @@
 <body>
 
   <h2>Data tina URL:</h2>
-  <p id="result">waiting...</p>
+  <div id="result">waiting...</div>
 
   <script>
-    // Ambil query string
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(location.search);
 
-    // Ambil parameter data
     const data = params.get("data");
-
-    // Ambil parameter html
     const html = params.get("html");
 
-    // Tampilkan data
-    if (data) {
-      alert(data);
+    if (data !== null) {
       document.getElementById("result").textContent = data;
-    } else {
-      document.getElementById("result").textContent = "null";
     }
 
-    // Render HTML
-    if (html) {
+    if (html !== null) {
       document.getElementById("result").innerHTML = html;
     }
 
-    // Listen postMessage
     window.addEventListener("message", (event) => {
       console.log("origin:", event.origin);
       console.log("source:", event.source);
-      console.log("data:", JSON.stringify(event.data));
-      console.log("length:", event.data.length);
-      console.log("is render:", event.data === "render");
+      console.log("data:", event.data);
     });
+
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      "<p>MAIN SCRIPT EXECUTED</p>"
+    );
   </script>
 
 </body>
